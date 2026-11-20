@@ -1,17 +1,20 @@
 """FastAPI app: one WebSocket endpoint that connects browsers to the current Session."""
 import logging
+from pathlib import Path
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 
-from .ai_player import StubAI
+from .ai_player import make_ai
 from .config import load_config
 from .session import Session
 
 logging.basicConfig(level=logging.INFO)
+load_dotenv(Path(__file__).resolve().parents[2] / ".env")  # local runs: read GEMINI_API_KEY from .env in the repo root
 
 app = FastAPI()
 cfg = load_config()   # read config.yml once at startup (so: restart after editing it)
-ai = StubAI()         # step (c): replaced by the Gemini player
+ai = make_ai(cfg)     # Gemini if GEMINI_API_KEY is set, else the placeholder AI
 current = None        # the one live session
 
 

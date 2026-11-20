@@ -30,7 +30,19 @@ Design risks I thought about BEFORE writing code (these were avoided by design, 
 - Cause: not confirmed. Most likely the server (uvicorn --reload) was restarted while the player was connected, since 1012 is what a stopping server sends. A second run worked fine.
 - Fix: none needed in the experiment code. Known limitation: fake_player prints a long error when the server stops.
 
-### Observation (not a crash): the stub AI chats too much
-- Saw: in a real 2-human run the stub AI player sent about 15 messages per 60-second round and repeated the same lines.
+### Problem 3: the stub AI chats too much (found in step b, fixed in step c)
+- Saw: in a real 2-human run the stub AI player sent more than 10 messages per 60-second round and repeated the same lines.
 - Why it matters: a real person would not do that, so it would reveal the AI and break the blind condition.
-- Plan: step (c) makes the AI reply less often and react to what others write, then check it in a real run.
+- Fix: speaking rules in session.py (AI waits 4-10 s, at most 3 messages per round, never two messages in a row), set in config.yml. Checked on a real server run: each AI wrote exactly 3 messages per round. Unit test + 2 deliberate-break checks (no cap / allow double messages) both made the test fail.
+
+### Mistake 4: pasting notes into the terminal ran them (junk file "which" committed)
+- Saw: `git commit` listed `backend/which`. Later, text with backticks in it printed "no such file or directory: backend/which".
+- Cause: I pasted note text into the terminal instead of a file. A line starting with ">" redirected output into a new file called "which". Backticks make the shell run the command inside them (`git commit` ran by accident).
+- Fix: `git rm -f backend/which`, amended the commit before the first push, then checked with `git status`, `git ls-files`, `git log`. The AI then switched to sending finished files instead of text to paste.
+- Lesson: check `git status` before committing; paste notes into a file, never into the terminal.
+
+### Test of failure: Gemini unreachable (step c)
+- Setup: real server, a fake API key, so every Gemini call failed (in my AI's sandbox the network is blocked, 17 errors).
+- Saw: the game still finished with a result. The AIs stayed silent in chat and voted randomly. The server log filled with 17 long stack traces.
+- Fix: log one short warning line per failure instead of a full trace.
+- Limit (documented, not fixed): if Gemini is down the whole game, the AI players never speak, which would reveal them. A real study should check the log after each session.

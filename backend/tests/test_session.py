@@ -100,6 +100,31 @@ def test_ai_players_chat_and_export_has_everything():
     assert set(data) >= {"participants", "messages", "votes", "round_tallies", "result"}
 
 
+# ---------- how AI players speak ----------
+
+def test_ai_speaking_rules():
+    """Each AI writes at most ai_max_messages per round, and nobody writes twice in a row."""
+    async def quiet_human(msg):
+        pass                                         # a human who never writes or votes
+
+    async def scenario():
+        cfg = make_cfg(["human", "ai", "ai"], vote_seconds=0.2)
+        cfg.ai_max_messages = 2
+        cfg.chat_seconds = 0.6
+        cfg.ai_reply_delay = (0.01, 0.02)            # AIs would write ~30 times without the rules
+        session = Session(cfg, FakeAI())
+        session.join(quiet_human)
+        session.maybe_start()
+        await asyncio.wait_for(session.task, timeout=5)
+        return session
+
+    session = asyncio.run(scenario())
+    for r in (1, 2):
+        senders = [m["from"] for m in session.messages if m["round"] == r]
+        assert senders.count("B") == 2 and senders.count("C") == 2
+        assert all(a != b for a, b in zip(senders, senders[1:]))   # no double messages
+
+
 # ---------- waiting room and edge cases ----------
 
 def test_waits_until_all_humans_are_there():

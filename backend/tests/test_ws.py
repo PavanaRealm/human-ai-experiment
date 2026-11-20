@@ -2,6 +2,7 @@
 from fastapi.testclient import TestClient
 
 import app.main as main
+from app.ai_player import StubAI
 from app.config import Config
 
 
@@ -9,6 +10,7 @@ def test_full_game_over_websocket(monkeypatch):
     cfg = Config(participants=["human", "ai", "ai"], rounds=2, chat_seconds=0.3, vote_seconds=5,
                  feedback_seconds=0.05, min_wait_seconds=0, ai_model="x", ai_reply_delay=(0.02, 0.05))
     monkeypatch.setattr(main, "cfg", cfg)
+    monkeypatch.setattr(main, "ai", StubAI())   # never call the real Gemini from a test
     monkeypatch.setattr(main, "current", None)
 
     with TestClient(main.app) as client:

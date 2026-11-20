@@ -145,14 +145,23 @@ class Session:
                 t.cancel()
             await asyncio.gather(*ai_tasks, return_exceptions=True)
 
+    def _ai_may_speak(self, pid):
+        """Rules that keep an AI from chatting like a machine: a cap per round, never twice in a row."""
+        this_round = [m for m in self.messages if m["round"] == self.round]
+        if sum(1 for m in this_round if m["from"] == pid) >= self.cfg.ai_max_messages:
+            return False
+        return not (this_round and this_round[-1]["from"] == pid)
+
     async def _ai_chat_loop(self, pid):
         """An AI player: wait a random time, maybe say something, repeat. Cancelled when the chat ends."""
         while True:
             await asyncio.sleep(random.uniform(*self.cfg.ai_reply_delay))
+            if not self._ai_may_speak(pid):
+                continue
             try:
                 text = await self.ai.reply(pid, self.messages, self.round)
-            except Exception:
-                log.exception("AI reply failed")
+            except Exception as e:  # e.g. Gemini down, rate limit, timeout: stay silent this time, try later
+                log.warning("AI reply failed: %r", e)
                 continue
             if text:
                 await self.add_message(pid, text)
@@ -183,9 +192,9 @@ class Session:
             vote = await self.ai.vote(pid, self.messages)
             if vote in PLAYER_IDS:
                 return vote
-        except Exception:
-            log.exception("AI vote failed")
-        return random.choice(PLAYER_IDS)  # fallback if the AI call failed
+        except Exception as e:
+            log.warning("AI vote failed: %r", e)
+        return random.choice(PLAYER_IDS)  # fallback if the AI call failed or the answer was unclear
 
     def _everyone_voted(self):
         voters = [pid for pid, kind in self.slots.items() if kind == "ai" or pid in self.connections]

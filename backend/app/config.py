@@ -21,6 +21,7 @@ class Config:
     min_wait_seconds: float
     ai_model: str
     ai_reply_delay: tuple  # (min, max) seconds
+    ai_max_messages: int = 3  # max chat messages per AI player per round
 
 
 def parse_config(raw: dict) -> Config:
@@ -49,6 +50,7 @@ def parse_config(raw: dict) -> Config:
         min_wait_seconds=float(raw.get("min_wait_seconds", 3)),
         ai_model=str(ai.get("model", "")),
         ai_reply_delay=(float(delay[0]), float(delay[1])),
+        ai_max_messages=int(ai.get("max_messages_per_round", 3)),
     )
 
 

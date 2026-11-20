@@ -115,3 +115,23 @@ which bug note I should save
 ~~~text
 (pasted my terminal output: ran open -e on notes/bugs.md, then typed the log entry text into the terminal by mistake, zsh errors)
 ~~~
+
+## 17. Step (b) – copy and first git push (2026-11-20)
+~~~text
+(pasted my terminal output: cp of ai_prompts.md worked, cp of bugs.md said "No such file or directory", git commit showed backend/which in the commit, git push failed with "Repository not found" because the URL still said YOUR-USERNAME)
+~~~
+
+## 18. Step (b) – looking for bugs.md in Downloads (2026-11-20)
+~~~text
+(pasted my terminal output: ls ~/Downloads | grep -i bugs printed nothing)
+~~~
+
+## 19. Step (b) – push worked (2026-11-20)
+~~~text
+(pasted my terminal output: git push succeeded, "main -> main"; then I pasted the bug note text into the terminal by mistake, zsh errors)
+~~~
+
+## 20. Step (b) – checking the repo state (2026-11-20)
+~~~text
+(pasted my terminal output: git status clean, git ls-files shows notes/bugs.md and no backend/which, grep count 1, git log shows one commit ebbf533 on main and origin/main)
+~~~
