@@ -71,9 +71,18 @@ def test_empty_reply_means_stay_silent():
     assert asyncio.run(ai.reply("B", MESSAGES, 1)) is None
 
 
-def test_vote_returns_a_letter_or_none():
+def test_vote_returns_a_letter_or_none(caplog):
     assert asyncio.run(GeminiAI("k", "m", 2, client=fake_client("C")).vote("A", MESSAGES)) == "C"
+    assert "unclear vote" not in caplog.text
     assert asyncio.run(GeminiAI("k", "m", 2, client=fake_client("hmm")).vote("A", MESSAGES)) is None
+    assert "unclear vote" in caplog.text      # an unusable answer leaves a warning in the log
+
+
+def test_persona_tells_the_model_not_to_invent_things():
+    client = fake_client("ok")
+    asyncio.run(GeminiAI("k", "m", 2, client=client).reply("B", MESSAGES, 1))
+    system = client.aio.models.calls[0]["config"].system_instruction
+    assert "only know what is written in the chat" in system and "under 25 words" in system
 
 
 def test_slow_gemini_call_is_cancelled():

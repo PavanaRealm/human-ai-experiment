@@ -4,10 +4,10 @@
 #   1) 3 humans:         [human, human, human]
 #   2) 2 humans + 1 AI: [human, human, ai]
 #   3) 1 human + 2 AI:  [human, ai, ai]
-participants: [human, ai, ai]
+participants: [human, human, ai]
 
 rounds: 2
-chat_seconds: 30       # length of the chat in each round
+chat_seconds: 60       # length of the chat in each round
 vote_seconds: 15       # time to vote (ends early if everyone voted)
 feedback_seconds: 8    # how long the round tally is shown (between rounds)
 min_wait_seconds: 3    # waiting room lasts at least this long (keeps conditions look the same)

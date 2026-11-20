@@ -1,0 +1,16 @@
+# Short settings for quick manual tests (1 human + 2 AI, 30 second chat).
+# Use it without touching config.yml. From the backend folder:
+#   CONFIG_PATH=../config.test.yml uvicorn app.main:app --reload --port 8001
+#   python fake_player.py ws://localhost:8001/ws
+participants: [human, ai, ai]
+
+rounds: 2
+chat_seconds: 30
+vote_seconds: 15
+feedback_seconds: 3
+min_wait_seconds: 1
+
+ai:
+  model: "gemini-3.1-flash-lite"
+  reply_delay_seconds: [4, 10]
+  max_messages_per_round: 3

@@ -135,3 +135,53 @@ which bug note I should save
 ~~~text
 (pasted my terminal output: git status clean, git ls-files shows notes/bugs.md and no backend/which, grep count 1, git log shows one commit ebbf533 on main and origin/main)
 ~~~
+
+## 21. Step (c) – files copied in (2026-11-20)
+~~~text
+(pasted my terminal output: git status --short listing 10 modified files and 2 new files; and the text ". it appeared")
+~~~
+
+## 22. Step (c) – the key (2026-11-20)
+~~~text
+I added the key and then saved , but then still it appeared
+~~~
+
+## 23. Step (c) – checking .env (2026-11-20)
+~~~text
+(pasted my terminal output of the env checks: ls shows .env and .env.example, git status shows only ?? .env.example, both grep counts 0)
+~~~
+
+## 24. Step (c) – file type and size of .env (2026-11-20)
+~~~text
+(pasted my terminal output: .env is ASCII text, 193 bytes, sed output with the value hidden)
+~~~
+
+## 25. Step (c) – line lengths of .env (2026-11-20)
+~~~text
+(pasted my terminal output: line lengths 68, 54, 68 and the text before the equals sign, "3:GEMINI_API_KEY=")
+~~~
+
+## 26. Step (c) – character check, first result (2026-11-20)
+~~~text
+(pasted my terminal output: grep -c for letters/digits only printed 0)
+~~~
+
+## 27. Step (c) – character check, second result (2026-11-20)
+~~~text
+(pasted my terminal output of the od -c check: the only unusual character in the value is one ".")
+~~~
+
+## 28. Step (c) – tests on my Mac (2026-11-20)
+~~~text
+(pasted my pytest output: 41 passed in 8.88s, Python 3.13.7, macOS)
+~~~
+
+## 29. Step (c) – uvicorn port error (2026-11-20)
+~~~text
+(pasted my terminal output: uvicorn failed with "[Errno 48] Address already in use")
+~~~
+
+## 30. Step (c) – first live run with Gemini (2026-11-20)
+~~~text
+(pasted the fake_player.py output of a full game on port 8001 with the real Gemini key: chat lines from B and C, round tallies, final result winner A)
+~~~

@@ -41,6 +41,15 @@ Design risks I thought about BEFORE writing code (these were avoided by design, 
 - Fix: `git rm -f backend/which`, amended the commit before the first push, then checked with `git status`, `git ls-files`, `git log`. The AI then switched to sending finished files instead of text to paste.
 - Lesson: check `git status` before committing; paste notes into a file, never into the terminal.
 
+### Problem 5: first live Gemini run (step c): it works, but the AI is easy to spot
+- Setup: real key, model gemini-3.1-flash-lite, 1 human (terminal bot) + 2 AI. It worked: the model name was accepted, both AIs chatted, both voted, the game finished.
+- Saw (from the real output):
+  - After only ONE human message, an AI wrote that "B seems really organized with the tasks so far" and another said C "has been keeping us on track". Nothing like that had happened: the model made up context.
+  - Messages were 25-40 words, very polite, and often ended with "What do you think about that?".
+  - Round 1: AI player B argued for C and then for A in the chat, but the round tally ({'A': 1, 'B': 2, 'C': 0}) means both AIs voted B. Either B really voted for itself, or its answer was unclear and the random fallback was used. I could not tell, because nothing was logged for that case.
+- Fix (a guess until it is run again): prompt now says "you only know what is written in the chat", "under 25 words", "do not end every message with a question", and for votes "stay consistent with what you said". Unclear vote answers now write a warning to the log.
+- Also added: config.test.yml, so quick tests do not need edits to config.yml.
+
 ### Test of failure: Gemini unreachable (step c)
 - Setup: real server, a fake API key, so every Gemini call failed (in my AI's sandbox the network is blocked, 17 errors).
 - Saw: the game still finished with a result. The AIs stayed silent in chat and voted randomly. The server log filled with 17 long stack traces.
