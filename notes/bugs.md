@@ -49,6 +49,12 @@ Design risks I thought about BEFORE writing code (these were avoided by design, 
   - Round 1: AI player B argued for C and then for A in the chat, but the round tally ({'A': 1, 'B': 2, 'C': 0}) means both AIs voted B. Either B really voted for itself, or its answer was unclear and the random fallback was used. I could not tell, because nothing was logged for that case.
 - Fix (a guess until it is run again): prompt now says "you only know what is written in the chat", "under 25 words", "do not end every message with a question", and for votes "stay consistent with what you said". Unclear vote answers now write a warning to the log.
 - Also added: config.test.yml, so quick tests do not need edits to config.yml.
+- Second live run after the prompt change (one run only):
+  - Better: no more "so far" / "keeping us on track" made-up context; messages about 15-25 words; fewer questions; round 1 votes matched the chat (B suggested C, C accepted, both AIs voted C).
+  - Still not perfect: an AI said "I've done a few tasks like this before" (an invented personal claim) and talked about "the next part"; messages are still very agreeable and polite.
+  - Round 2: B and C both said "stick to the plan" (= C), but the tally {'A': 2, 'B': 0, 'C': 1} shows one AI voted A. I did not check the log for an "unclear vote" warning, so I do not know if that was the random fallback or the model.
+  - Tie-break worked as designed: totals A 3, C 3 -> tie -> winner A by the last round (A had 2 votes in round 2).
+  - Decision: stop tuning the prompt here (time limit). Listed as a limitation in the README.
 
 ### Test of failure: Gemini unreachable (step c)
 - Setup: real server, a fake API key, so every Gemini call failed (in my AI's sandbox the network is blocked, 17 errors).

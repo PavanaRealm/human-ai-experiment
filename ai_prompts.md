@@ -185,3 +185,18 @@ I added the key and then saved , but then still it appeared
 ~~~text
 (pasted the fake_player.py output of a full game on port 8001 with the real Gemini key: chat lines from B and C, round tallies, final result winner A)
 ~~~
+
+## 31. Step (c) – first commit and push of step c (2026-11-20)
+~~~text
+(pasted my terminal output: git add, git status --short, git commit "Step c: Gemini AI players with speaking rules", git push main 78a226a)
+~~~
+
+## 32. Step (c) – port 8001 in use (2026-11-20)
+~~~text
+(pasted my terminal output: uvicorn with CONFIG_PATH=../config.test.yml on port 8001 failed with "[Errno 48] Address already in use")
+~~~
+
+## 33. Step (c) – second live run with Gemini (2026-11-20)
+~~~text
+(pasted my terminal output: the end of the uvicorn log with "AI players use Gemini model gemini-3.1-flash-lite", then the fake_player.py output of a full game on port 8001: chat from B and C, tallies, result winner A with tie_break last_round)
+~~~
