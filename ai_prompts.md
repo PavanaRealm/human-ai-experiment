@@ -349,3 +349,68 @@ Did you finish the game in the browser before this? yes
 ~~~text
 (pasted my terminal output: docker compose down, git status --short, git commit "Step e: Docker, docker-compose and MongoDB", git push (43e20a7..aad4766))
 ~~~
+
+## 64. Step (f) – committed and pushed the README (2026-11-22)
+~~~text
+(pasted my terminal output: git status --short, git commit "Step f: README", git push (aad4766..b3236cf))
+~~~
+
+## 65. Step (g) – fresh clone test (2026-11-22)
+~~~text
+(pasted my terminal output: in /tmp/clone-test, `docker compose up -d`, `docker compose restart backend`, then `docker compose down -v` and rm -rf; no results of the games)
+~~~
+
+## 66. Step (g) – "ok" (2026-11-22)
+~~~text
+ok
+~~~
+
+## 67. Step (g) – I pasted the checklist text back (2026-11-22)
+~~~text
+Send me the results before you clean up. Use this checklist: sorry I forgot
+~~~
+
+## 68. Step (g) – same again (2026-11-22)
+~~~text
+Send me the results before you clean up. Use this checklist: sorry I forgot
+~~~
+
+## 69. Step (g) – fresh clone log (2026-11-22)
+~~~text
+(attached a text file with my terminal output of `docker compose up --build` in the fresh clone: images built, mongo and nginx started, backend warning "GEMINI_API_KEY is not set -> using the placeholder AI", "Uvicorn running on http://0.0.0.0:8000")
+~~~
+
+## 70. Step (g) – round 1 feedback screenshot (2026-11-22)
+~~~text
+(sent a screenshot of the round 1 feedback screen: A 2 votes, B 0, C 1, "The next round starts soon.", 2 s)
+~~~
+
+## 71. Step (g) – game finished, no screenshot (2026-11-22)
+~~~text
+Done with both of the screens, but I didn't got time to take a screenshot of the other screen because only 2 seconds was left when I was trying to take a screenshot. So and then it gone, but it's the result came.
+~~~
+
+## 72. Step (g) – config switch (2026-11-22)
+~~~text
+(pasted my terminal output: `open -e config.yml` twice, then `docker compose restart backend`)
+~~~
+
+## 73. Step (g) – game with one tab, second tab refused (2026-11-22)
+~~~text
+(sent 2 screenshots: a round 1 feedback screen "Player A (you): 1 vote, Player B: 2 votes, Player C: 0 votes", and the screen "Sorry, an experiment is already running.")
+~~~
+
+## 74. Step (g) – config line (2026-11-22)
+~~~text
+(pasted my terminal output: `grep participants config.yml` printed "participants: [human, ai, ai]")
+~~~
+
+## 75. Step (g) – public repo check (2026-11-22)
+~~~text
+(sent 2 screenshots of the GitHub repo page in an incognito window: Public, 7 commits, no .env in the file list, README displayed)
+~~~
+
+## 76. Step (g) – tests on my Mac (2026-11-22)
+~~~text
+(pasted my terminal output: pytest 48 passed; npm test: 2 files, 17 tests passed)
+~~~

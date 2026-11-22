@@ -100,3 +100,10 @@ Design risks I thought about BEFORE writing code (these were avoided by design, 
 - "address already in use" on port 5173 when running `docker compose up`: my old `npm run dev` was still running. Fix: stop it (`pkill -f vite`) and check with `lsof -i :5173 -i :8000`. Same kind of problem as the earlier uvicorn port 8000 problem. Mentioned in the README.
 - `db.sessions.find()` printed `[]`: I ran it before the game reached the result screen. A session is saved only when the game finishes. After the result screen: count 1 and the full record (participants, messages, votes, round tallies, result).
 - Docker run, 2 tabs (2 humans + 1 AI, real Gemini): all 3 votes counted in both rounds, the result matched the saved record.
+
+## Step (g) – final checks (2026-11-22)
+- Fresh `git clone` of the public repo into /tmp, no `.env`, `docker compose up --build`: all 3 containers start. The backend prints "GEMINI_API_KEY is not set -> using the placeholder AI" and does not crash. A full game with 2 tabs reached the result screen (round 1 feedback seen: A 2, B 0, C 1 = 3 votes; I saw the final result screen myself but did not get a screenshot).
+- Config switch: edited `config.yml` in the clone to `[human, ai, ai]`, `docker compose restart backend`, ONE tab: the game started by itself and ran with 1 human + 2 AI (round 1: A 1, B 2, C 0 = 3 votes). A second tab was refused with "Sorry, an experiment is already running." (the designed screen). So the README instruction "edit config.yml, then `docker compose restart backend`" works (config line checked with grep).
+- Mistake of mine: I pasted the checklist instructions back into the chat instead of filling it in; I also cleaned up the test folder before sending results, so the first run had to be repeated.
+- Tests on my Mac: 48 backend, 17 frontend passed.
+- Repo checked in a private browser window: public, README shown, no `.env` in the file list.
