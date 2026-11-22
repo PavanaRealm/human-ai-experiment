@@ -200,3 +200,37 @@ I added the key and then saved , but then still it appeared
 ~~~text
 (pasted my terminal output: the end of the uvicorn log with "AI players use Gemini model gemini-3.1-flash-lite", then the fake_player.py output of a full game on port 8001: chat from B and C, tallies, result winner A with tie_break last_round)
 ~~~
+
+## 34. Step (c) – copied update 3, tests, second push (2026-11-20)
+~~~text
+(pasted my terminal output: rsync of step-c3, pytest 43 passed, config.yml back to defaults, git status showed 2 modified files, git commit and git push 80a8c41)
+~~~
+
+## 35. Step (c) – repo check on GitHub (2026-11-20)
+~~~text
+(sent a screenshot of my GitHub repo page, and pasted my terminal output: git log --oneline shows 4 commits, git ls-files shows config.test.yml)
+~~~
+
+## 36. Step (c) – decision to stop for tonight (2026-11-20)
+~~~text
+(answered the question "start step (d) now, or stop for tonight and continue on Sunday?" with: Stop, Sunday)
+~~~
+## 37. Cleaning up downloads (2026-11-20)
+~~~text
+ok , and we have downloaded so many files , can you remove all the unwanted files
+~~~
+
+## 38. Cleaning up downloads – list (2026-11-20)
+~~~text
+(pasted my terminal output: the ls -d list of files in ~/Downloads: zips, step-c folders, ai_prompts and bugs copies, the python pkg)
+~~~
+
+## 39. Cleaning up downloads – done (2026-11-20)
+~~~text
+(pasted my terminal output: ran the rm commands, ls -d printed "no matches found", git status printed nothing, ls shows the project files)
+~~~
+
+## 40. Step (d) – start (2026-11-22)
+~~~text
+start(d)
+~~~

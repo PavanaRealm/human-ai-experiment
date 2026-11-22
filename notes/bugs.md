@@ -61,3 +61,17 @@ Design risks I thought about BEFORE writing code (these were avoided by design, 
 - Saw: the game still finished with a result. The AIs stayed silent in chat and voted randomly. The server log filled with 17 long stack traces.
 - Fix: log one short warning line per failure instead of a full trace.
 - Limit (documented, not fixed): if Gemini is down the whole game, the AI players never speak, which would reveal them. A real study should check the log after each session.
+
+## Step (d) – frontend
+
+### Bug 7: the page went blank when the first chat message arrived (found only in a real browser)
+- Saw: in a real Chrome run with two tabs, both tabs turned completely white right after one tab sent a chat message. Console: "l is not a function" (minified build). With the unminified dev server: "An effect must not return anything besides a function ... destroy is not a function".
+- Cause: my effect that scrolls the chat to the newest message was written as `useEffect(() => bottom.current?.scrollIntoView?.(...), [...])`. The arrow function returns whatever `scrollIntoView` returns. In this Chrome that is a Promise, and React tried to call it as the cleanup function, which crashed the whole page.
+- Why the tests did not catch it: all 16 frontend tests passed. They run in a fake browser (jsdom) that has no `scrollIntoView`, so the effect returned undefined there.
+- Fix: write the effect with braces so it returns nothing. Added a test where `scrollIntoView` returns a Promise. Checked that the new test FAILS with the old code and passes with the fix.
+- Lesson: unit tests in a fake browser are not enough. Run the real thing in a real browser.
+
+### Frontend checks done
+- 17 frontend tests (state logic + whole UI against a fake server). 4 deliberate-break checks (input not cleared, old rounds' messages not filtered, the word "human" on the waiting screen, lost connection ignored): each made a test fail.
+- Real Chrome, real backend, 2 browser tabs as 2 humans (+1 placeholder AI): waiting room, chat between tabs, vote, round feedback, round 2 starts with an empty chat, result, and a new visitor after the game gets a fresh waiting room. No browser errors. No word like "AI" or "human" on any screen.
+- NOT checked by me: a real game on the user's Mac with the real Gemini key through the browser.
