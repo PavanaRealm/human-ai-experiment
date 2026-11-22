@@ -304,3 +304,48 @@ Did your chat messages show up in the other tab? yes,  Did you see the vote butt
 ~~~text
 (pasted my terminal output: Docker version 29.9.3, "Hello from Docker!" (arm64v8), Docker Compose version v5.7.0)
 ~~~
+
+## 55. Step (e) – ran only the last command (2026-11-22)
+~~~text
+(pasted my terminal output: `docker compose exec mongo mongosh ...` gave "command not found: docker")
+~~~
+
+## 56. Step (e) – port 5173 already in use (2026-11-22)
+~~~text
+(pasted my terminal output: "Error response from daemon: ports are not available: exposing port TCP 0.0.0.0:5173 ... address already in use", then countDocuments printed 0)
+~~~
+
+## 57. Step (e) – containers started (2026-11-22)
+~~~text
+(pasted my terminal output: mongo, then backend log lines "AI players use Gemini model", "Finished sessions are saved to MongoDB", "Uvicorn running on http://0.0.0.0:8000")
+~~~
+
+## 58. Step (e) – old terminal window (2026-11-22)
+~~~text
+(pasted my terminal output: in an old window `docker compose exec ...` gave "command not found: docker")
+~~~
+
+## 59. Step (e) – empty database result (2026-11-22)
+~~~text
+(pasted my terminal output: docker --version worked in a new window, `db.sessions.find().toArray()` printed [], then the export PATH command)
+~~~
+
+## 60. Step (e) – asked if the game was finished (2026-11-22)
+~~~text
+Did you finish the game in the browser before this? yes
+~~~
+
+## 61. Step (e) – Docker game result screenshots (2026-11-22)
+~~~text
+(sent 2 screenshots of both tabs' result screens: Player A is the Decision Maker, round 1 A 3 B 0 C 0, round 2 A 1 B 0 C 2)
+~~~
+
+## 62. Step (e) – saved game in MongoDB (2026-11-22)
+~~~text
+(attached a text file with my terminal output: logs, countDocuments printed 1, and the saved document from `db.sessions.find().toArray()`)
+~~~
+
+## 63. Step (e) – docker compose down, commit, push (2026-11-22)
+~~~text
+(pasted my terminal output: docker compose down, git status --short, git commit "Step e: Docker, docker-compose and MongoDB", git push (43e20a7..aad4766))
+~~~

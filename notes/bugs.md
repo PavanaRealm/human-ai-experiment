@@ -94,3 +94,9 @@ Design risks I thought about BEFORE writing code (these were avoided by design, 
 ## Step (e) – Docker and MongoDB
 - db.py: own small version (`Store.save_session`, `make_store()` from `MONGO_URL`). Tests with a fake collection; 2 deliberate-break checks (hook not called; DB error not caught): each made a test fail.
 - NOT checked by me: the Dockerfiles and docker-compose.yml. My AI's sandbox has no Docker engine and no MongoDB, so I only ran `docker compose config` (syntax). The first real run was on the user's Mac.
+
+### Step (e) – mistakes while testing in Docker (all my own, none in the code)
+- `docker: command not found` three times: a terminal window opened before Docker Desktop was installed does not know the command. Fix: open a new window (or `export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin"`).
+- "address already in use" on port 5173 when running `docker compose up`: my old `npm run dev` was still running. Fix: stop it (`pkill -f vite`) and check with `lsof -i :5173 -i :8000`. Same kind of problem as the earlier uvicorn port 8000 problem. Mentioned in the README.
+- `db.sessions.find()` printed `[]`: I ran it before the game reached the result screen. A session is saved only when the game finishes. After the result screen: count 1 and the full record (participants, messages, votes, round tallies, result).
+- Docker run, 2 tabs (2 humans + 1 AI, real Gemini): all 3 votes counted in both rounds, the result matched the saved record.
