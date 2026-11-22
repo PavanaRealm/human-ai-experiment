@@ -7,6 +7,7 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 
 from .ai_player import make_ai
 from .config import load_config
+from .db import make_store
 from .session import Session
 
 logging.basicConfig(level=logging.INFO)
@@ -15,6 +16,7 @@ load_dotenv(Path(__file__).resolve().parents[2] / ".env")  # local runs: read GE
 app = FastAPI()
 cfg = load_config()   # read config.yml once at startup (so: restart after editing it)
 ai = make_ai(cfg)     # Gemini if GEMINI_API_KEY is set, else the placeholder AI
+store = make_store()  # MongoDB if MONGO_URL is set, else None
 current = None        # the one live session
 
 
@@ -22,7 +24,7 @@ def get_session() -> Session:
     """Return the live session, or start a fresh one if there is none or the last one is over."""
     global current
     if current is None or current.over:
-        current = Session(cfg, ai)
+        current = Session(cfg, ai, on_finish=store.save_session if store else None)
     return current
 
 

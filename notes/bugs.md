@@ -75,3 +75,22 @@ Design risks I thought about BEFORE writing code (these were avoided by design, 
 - 17 frontend tests (state logic + whole UI against a fake server). 4 deliberate-break checks (input not cleared, old rounds' messages not filtered, the word "human" on the waiting screen, lost connection ignored): each made a test fail.
 - Real Chrome, real backend, 2 browser tabs as 2 humans (+1 placeholder AI): waiting room, chat between tabs, vote, round feedback, round 2 starts with an empty chat, result, and a new visitor after the game gets a fresh waiting room. No browser errors. No word like "AI" or "human" on any screen.
 - NOT checked by me: a real game on the user's Mac with the real Gemini key through the browser.
+
+## Step (d) – testing on a Mac, two tabs
+
+### Not a bug 8: "connection lost" in both tabs
+- Saw: both tabs showed "connection lost" although the page loaded.
+- Cause: I had stopped the backend with `pkill` and not restarted it. The frontend (a separate process) was still running, so the page loaded, but the WebSocket on port 8000 had nobody to talk to. Also `npm run dev` was typed inside `backend/` and failed with ENOENT (no package.json there).
+- Fix: start `uvicorn` in `backend/` and `npm run dev` in `frontend/`. Two processes, two terminals.
+- Lesson: the "connection lost" screen did what it should. It is also what a reviewer sees if the backend is down.
+
+### Not a bug 9: 2 votes per round instead of 3
+- Saw (15 s vote time, 2 human tabs + 1 AI): round 1 A 2 B 0 C 0, round 2 A 0 B 2 C 0. Each round had only 2 votes.
+- Cause: not confirmed. The most likely reason is a missed click inside the 15 s while switching tabs (non-voters count as abstain, by design). With `vote_seconds` 30 and clicks in both tabs: 3 votes per round (A 0 B 0 C 3 in both rounds). I did not read the backend log for the first run, so the missed click is a guess.
+- Also confirmed: the tie-break works (A 2 + B 2 tied, the last round decided: B).
+- Change: default `vote_seconds` 15 -> 30, because 15 s is too short with two tabs.
+- Found while reading the code: a player can vote for themselves (the server only checks that the target is A, B or C). Kept, and noted in the README.
+
+## Step (e) – Docker and MongoDB
+- db.py: own small version (`Store.save_session`, `make_store()` from `MONGO_URL`). Tests with a fake collection; 2 deliberate-break checks (hook not called; DB error not caught): each made a test fail.
+- NOT checked by me: the Dockerfiles and docker-compose.yml. My AI's sandbox has no Docker engine and no MongoDB, so I only ran `docker compose config` (syntax). The first real run was on the user's Mac.

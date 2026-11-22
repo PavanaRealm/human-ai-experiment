@@ -3,6 +3,7 @@ uvicorn[standard]==0.54.0
 PyYAML==6.0.3
 google-genai==3.6.1
 python-dotenv==1.2.4
+pymongo==4.20.1
 # for tests
 pytest==9.2.0
 httpx==0.28.1

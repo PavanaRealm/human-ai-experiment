@@ -8,7 +8,7 @@ participants: [human, human, ai]
 
 rounds: 2
 chat_seconds: 60       # length of the chat in each round
-vote_seconds: 15       # time to vote (ends early if everyone voted)
+vote_seconds: 30       # time to vote (ends early if everyone voted)
 feedback_seconds: 8    # how long the round tally is shown (between rounds)
 min_wait_seconds: 3    # waiting room lasts at least this long (keeps conditions look the same)
 

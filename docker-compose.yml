@@ -1,0 +1,29 @@
+services:
+  mongo:
+    image: mongo:8
+    volumes:
+      - mongo-data:/data/db      # keeps saved sessions after "docker compose down"
+
+  backend:
+    build: ./backend
+    env_file:
+      - path: .env               # GEMINI_API_KEY lives here; the file is optional
+        required: false
+    environment:
+      MONGO_URL: mongodb://mongo:27017   # "mongo" is the name of the service above
+    volumes:
+      - ./config.yml:/config/config.yml:ro
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"                # open http://localhost:5173
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:

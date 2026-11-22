@@ -234,3 +234,73 @@ ok , and we have downloaded so many files , can you remove all the unwanted file
 ~~~text
 start(d)
 ~~~
+
+## 41. Step (d) – waiting room screenshot (2026-11-22)
+~~~text
+(sent a screenshot of the waiting room: "You are Player A")
+~~~
+
+## 42. Step (d) – chat screenshot (2026-11-22)
+~~~text
+(sent a screenshot of the chat screen: a message from Player C written by Gemini, 21 s countdown)
+~~~
+
+## 43. Step (d) – result screenshot (2026-11-22)
+~~~text
+(sent a screenshot of the result screen: Player C is the Decision Maker, totals A 0, B 0, C 4)
+~~~
+
+## 44. Step (d) – votes were 0 (2026-11-22)
+~~~text
+I did not clicked anything , it just happened after few seconds
+~~~
+
+## 45. Step (d) – backend not running (2026-11-22)
+~~~text
+(pasted my terminal output: `npm run dev` run inside the backend folder gave ENOENT package.json) after pressing on those links both are showing , connections lost
+~~~
+
+## 46. Step (d) – backend log (2026-11-22)
+~~~text
+(pasted my terminal output: uvicorn started on port 8000, with two 404 lines for "GET /" and "GET /favicon.ico")
+~~~
+
+## 47. Step (d) – two-tab result, 2 votes per round (2026-11-22)
+~~~text
+(sent 2 screenshots of the result screens of both tabs: Player B is the Decision Maker, tie over all rounds, round 1: A 2 B 0 C 0, round 2: A 0 B 2 C 0)
+~~~
+
+## 48. Step (d) – answers to my questions (2026-11-22)
+~~~text
+Did your chat messages show up in the other tab? yes,  Did you see the vote buttons turn blue after clicking in each tab?yes
+~~~
+
+## 49. Step (d) – two-tab result, 3 votes per round (2026-11-22)
+~~~text
+(sent 2 screenshots of the result screens of both tabs: Player C is the Decision Maker, round 1: A 0 B 0 C 3, round 2: A 0 B 0 C 3)
+~~~
+
+## 50. Step (d) – committed and pushed, then Docker check (2026-11-22)
+~~~text
+(pasted my terminal output: git add, git status --short, git commit "Step d: React frontend", git push (80a8c41..43e20a7), then `docker --version` / `docker run hello-world` gave "command not found: docker", node --version v26.4.0)
+~~~
+
+## 51. Step (e) – Docker not found again (2026-11-22)
+~~~text
+(pasted my terminal output: docker --version, docker run hello-world and docker compose version all gave "command not found: docker")
+~~~
+
+## 52. Step (e) – Docker Desktop welcome screen (2026-11-22)
+~~~text
+(sent a screenshot of the Docker Desktop "Welcome to Docker" sign-in screen)
+~~~
+
+## 53. Step (e) – Docker Desktop running (2026-11-22)
+~~~text
+(sent a screenshot of Docker Desktop with "Engine running" at the bottom left)
+~~~
+
+## 54. Step (e) – Docker works (2026-11-22)
+~~~text
+(pasted my terminal output: Docker version 29.9.3, "Hello from Docker!" (arm64v8), Docker Compose version v5.7.0)
+~~~
